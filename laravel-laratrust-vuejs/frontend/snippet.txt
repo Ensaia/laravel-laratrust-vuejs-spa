@@ -1,0 +1,6 @@
+Dashboard Typography Cheat SheetStick to one font family. Use a strict hierarchy to guide the user's eyes:
+Dashboard Headers / Page Titles: 28 px - 32 px
+KPI Numbers (Large Stats): 24 px - 28 px
+Chart Titles & KPI Labels: 14 px - 16 px
+Body Text / Standard Labels: 14 px - 16 px
+Table Data & Chart Axes: 11 px - 12 px
