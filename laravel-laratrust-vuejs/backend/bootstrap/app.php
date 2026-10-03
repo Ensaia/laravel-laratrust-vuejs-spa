@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        // $middleware->redirectGuestsTo(fn () => url(env('APP_URL').'/login'));
+
+        $middleware->statefulApi();
+        $middleware->throttleApi();
+
+        $middleware->alias([
+            'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        ]);
+
+//         $middleware->api(prepend: [
+//             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+//         ]);
+//         $middleware->redirectGuestsTo('/login');
+//         $middleware->redirectUsersTo('/home');
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        // this commented code return 302 error code 
+        // $exceptions->shouldRenderJsonWhen(
+        //     fn (Request $request) => $request->is('api/*'),
+        // );
+    })->create();
